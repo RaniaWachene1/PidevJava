@@ -16,6 +16,8 @@ public class Article {
     private String nom_artiste;
     private float prix_article;
     private int quantite_article;
+    private Galerie galerie;
+    private User user;
 
     public Article(int id_article, String titre_article, String desc_article, String photo_article, String nom_artiste, float prix_article, int quantite_article, Galerie galerie) {
         this.id_article = id_article;
@@ -27,7 +29,7 @@ public class Article {
         this.quantite_article = quantite_article;
         this.galerie = galerie;
     }
-    private Galerie galerie;
+    
 
     public Article(String titre_article, String desc_article, String photo_article, String nom_artiste, float prix_article, int quantite_article, Galerie galerie) {
         this.titre_article = titre_article;
@@ -37,6 +39,18 @@ public class Article {
         this.prix_article = prix_article;
         this.quantite_article = quantite_article;
         this.galerie = galerie;
+    }
+
+    public Article(int id_article, String titre_article, String desc_article, String photo_article, String nom_artiste, float prix_article, int quantite_article, Galerie galerie, User user) {
+        this.id_article = id_article;
+        this.titre_article = titre_article;
+        this.desc_article = desc_article;
+        this.photo_article = photo_article;
+        this.nom_artiste = nom_artiste;
+        this.prix_article = prix_article;
+        this.quantite_article = quantite_article;
+        this.galerie = galerie;
+        this.user = user;
     }
 
     
@@ -93,13 +107,14 @@ public class Article {
         this.nom_artiste = nom_artiste;
     }
 
-//    public int getLikes_article() {
-//        return likes_article;
-//    }
-//
-//    public void setLikes_article(int likes_article) {
-//        this.likes_article = likes_article;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 
     public float getPrix_article() {
         return prix_article;

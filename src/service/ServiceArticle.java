@@ -5,6 +5,7 @@
 package service;
 import entite.Article;
 import entite.Galerie;
+import entite.User;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class ServiceArticle implements IService<Article> {
     ///////////////////////////////////////////////CRUD AJOUTER ARTICLE /////////////////////////////////////////////////////////OK*
 @Override
     public void insert(Article a) {
-        String requete = "insert into articles (titre_article,desc_article,photo_article,nom_artiste,prix_article,quantite_article,id_galerie) values(?,?,?,?,?,?,?)";
+        String requete = "insert into articles (titre_article,desc_article,photo_article,nom_artiste,prix_article,quantite_article,id_galerie,id_user) values(?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
            pst.setString(1, a.getTitre_article());
@@ -37,6 +38,7 @@ public class ServiceArticle implements IService<Article> {
             pst.setFloat(5, a.getPrix_article());
             pst.setInt(6, a.getQuantite_article());
             pst.setInt(7,  a.getGalerie().getId_galerie());
+            pst.setInt(8,  a.getUser().getId_user());
             pst.executeUpdate();
             System.out.println("Article ajouté!");
 
@@ -86,7 +88,7 @@ public class ServiceArticle implements IService<Article> {
 ///////////////////////////////////////////////CRUD MODIFIER ARTICLE /////////////////////////////////////////////////////////OK*
     @Override
     public void update(Article a) {
-        String requete = "UPDATE articles SET titre_article=?,desc_article=?,photo_article=?,nom_artiste=?,prix_article=?,quantite_article=?,id_galerie=?  WHERE id_article=?";
+        String requete = "UPDATE articles SET titre_article=?,desc_article=?,photo_article=?,nom_artiste=?,prix_article=?,quantite_article=?,id_galerie=?,id_user=?  WHERE id_article=?";
         
         
        try {
@@ -99,7 +101,8 @@ public class ServiceArticle implements IService<Article> {
             pst.setFloat(5, a.getPrix_article());
             pst.setInt(6, a.getQuantite_article());
             pst.setInt(7, a.getGalerie().getId_galerie());
-            pst.setInt(8, a.getId_article());
+            pst.setInt(8, a.getUser().getId_user());
+            pst.setInt(9, a.getId_article());
             pst.executeUpdate();
             System.out.println("Article_id " + a.getId_article()+":" + " modifié !");
 
@@ -134,6 +137,10 @@ public class ServiceArticle implements IService<Article> {
             Galerie g =new Galerie();
             g=sg.readById(rst.getInt("id_galerie"));
            a.setGalerie( g);
+           UserService us =new UserService();
+            User u =new User();
+            u=us.readById(rst.getInt("id_user"));
+           a.setUser( u);
            a.setId_article(rst.getInt( "id_article"));
             
         }}
@@ -155,10 +162,13 @@ public class ServiceArticle implements IService<Article> {
                 ServiceGalerie sg =new ServiceGalerie();
             Galerie g =new Galerie();
             g=sg.readById(rs.getInt("id_galerie"));
-           
+            UserService us =new UserService();
+            User u =new User();
+            u=us.readById(rs.getInt("id_user"));
+
               Article a=new Article(rs.getInt("id_article"), rs.getString("titre_article"),rs.getString("desc_article"),
                       rs.getString("photo_article"),rs.getString("nom_artiste"), rs.getFloat("prix_article"),
-                      rs.getInt("quantite_article") ,g);
+                      rs.getInt("quantite_article") ,g,u);
 
 list.add(a);
             }
