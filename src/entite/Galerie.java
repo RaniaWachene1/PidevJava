@@ -20,6 +20,10 @@ public class Galerie {
         this.titre_galerie = titre_galerie;
     }
 
+    public Galerie(String titre_galerie) {
+        this.titre_galerie = titre_galerie;
+    }
+
     
     public int getId_galerie() {
         return id_galerie;

@@ -38,7 +38,7 @@ public class ServiceArticle implements IService<Article> {
             pst.setFloat(5, a.getPrix_article());
             pst.setInt(6, a.getQuantite_article());
             pst.setInt(7,  a.getGalerie().getId_galerie());
-            pst.setInt(8,  a.getUser().getId_user());
+            pst.setInt(8,  1); //a.getUser().getId_user()
             pst.executeUpdate();
             System.out.println("Article ajouté!");
 
@@ -56,9 +56,10 @@ public class ServiceArticle implements IService<Article> {
      @Override
     public void delete(Article a) {
         try {
-            String requete = "DELETE FROM articles WHERE titre_article=?";
+            String requete = "DELETE FROM articles WHERE id_article=?";
             PreparedStatement pst = conn.prepareStatement(requete);
-            pst.setString(1, a.getTitre_article());
+            pst.setInt(1, a.getId_article());
+           // pst.setString(1, a.getTitre_article());
             pst.executeUpdate();
             System.out.println("Article supprimé!");
 
@@ -100,8 +101,8 @@ public class ServiceArticle implements IService<Article> {
             pst.setString(4, a.getNom_artiste());
             pst.setFloat(5, a.getPrix_article());
             pst.setInt(6, a.getQuantite_article());
-            pst.setInt(7, a.getGalerie().getId_galerie());
-            pst.setInt(8, a.getUser().getId_user());
+            pst.setInt(7, 1);
+            pst.setInt(8, 1);
             pst.setInt(9, a.getId_article());
             pst.executeUpdate();
             System.out.println("Article_id " + a.getId_article()+":" + " modifié !");
@@ -161,14 +162,14 @@ public class ServiceArticle implements IService<Article> {
             while(rs.next()){
                 ServiceGalerie sg =new ServiceGalerie();
             Galerie g =new Galerie();
-            g=sg.readById(rs.getInt("id_galerie"));
+          g=sg.readById(rs.getInt("id_galerie"));
             UserService us =new UserService();
-            User u =new User();
-            u=us.readById(rs.getInt("id_user"));
+            User u =new User(rs.getInt("id_user"));
+          //  u=us.readById(rs.getInt("id_user"));
 
               Article a=new Article(rs.getInt("id_article"), rs.getString("titre_article"),rs.getString("desc_article"),
                       rs.getString("photo_article"),rs.getString("nom_artiste"), rs.getFloat("prix_article"),
-                      rs.getInt("quantite_article") ,g,u);
+                      rs.getInt("quantite_article") ,g);
 
 list.add(a);
             }

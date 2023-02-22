@@ -4,11 +4,16 @@
  */
 package gui;
 
+import java.io.IOException;
 import javafx.application.Application;
+import static javafx.application.ConditionalFeature.FXML;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -18,25 +23,19 @@ import javafx.stage.Stage;
  */
 public class MyArt extends Application {
     
-    @Override
-    public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
+
+     @Override
+    public void start(Stage primaryStage) throws IOException {
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("Galerie.fxml"));
+                            System.out.println(loader.getLocation());
+        Parent root=loader.load();
+         System.out.println("MyArt");
+        StackPane stackpane=new StackPane();
+        stackpane.getChildren().add(root);
+        Scene scene = new Scene(stackpane);
         primaryStage.setScene(scene);
+                primaryStage.setTitle("MyArt");
+
         primaryStage.show();
     }
 

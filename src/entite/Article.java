@@ -30,16 +30,34 @@ public class Article {
         this.galerie = galerie;
     }
     
+public Article(int id_article, String titre_article, String desc_article, String nom_artiste, float prix_article, int quantite_article, Galerie galerie, User user) {
+        this.id_article = id_article;
+        this.titre_article = titre_article;
+        this.desc_article = desc_article;
+        
+        this.nom_artiste = nom_artiste;
+        this.prix_article = prix_article;
+        this.quantite_article = quantite_article;
+        this.galerie = galerie;
+        this.user = user;
+    }
 
-    public Article(String titre_article, String desc_article, String photo_article, String nom_artiste, float prix_article, int quantite_article, Galerie galerie) {
+    public Article(int id_article, String titre_article, String desc_article, String photo_article, String nom_artiste, float prix_article, int quantite_article) {
+        this.id_article = id_article;
         this.titre_article = titre_article;
         this.desc_article = desc_article;
         this.photo_article = photo_article;
         this.nom_artiste = nom_artiste;
         this.prix_article = prix_article;
         this.quantite_article = quantite_article;
-        this.galerie = galerie;
     }
+
+ 
+
+    public Article(int id_article) {
+        this.id_article = id_article;
+    }
+    
 
     public Article(int id_article, String titre_article, String desc_article, String photo_article, String nom_artiste, float prix_article, int quantite_article, Galerie galerie, User user) {
         this.id_article = id_article;
@@ -53,9 +71,21 @@ public class Article {
         this.user = user;
     }
 
+    public Article(String titre_article, String desc_article, String photo_article, String nom_artiste, float prix_article, int quantite_article, Galerie galerie) {
+        this.titre_article = titre_article;
+        this.desc_article = desc_article;
+        this.photo_article = photo_article;
+        this.nom_artiste = nom_artiste;
+        this.prix_article = prix_article;
+        this.quantite_article = quantite_article;
+        this.galerie = galerie;
+    }
+
     
     public Article() {
     }
+
+    
 
     public Galerie getGalerie() {
         return galerie;

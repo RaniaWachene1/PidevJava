@@ -112,6 +112,10 @@ public class User {
         return Role;
     }
 
+    public User(int id_user) {
+        this.id_user = id_user;
+    }
+
    
   
    

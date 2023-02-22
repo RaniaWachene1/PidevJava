@@ -83,9 +83,10 @@ public class ServiceGalerie implements IService<Galerie>{
     public void update(Galerie g) {
       String requete = "UPDATE  galeries SET titre_galerie=? WHERE id_galerie=?";
         try {
+            System.out.println("updating    "+g.getTitre_galerie());
             PreparedStatement pst = conn.prepareStatement(requete);
-             pst.setInt(1, g.getId_galerie());
-            pst.setString(2, g.getTitre_galerie());
+             pst.setInt(2, g.getId_galerie());
+            pst.setString(1, g.getTitre_galerie());
             pst.executeUpdate();
             System.out.println("galerie modifié!");
 
@@ -137,7 +138,27 @@ public class ServiceGalerie implements IService<Galerie>{
     }
     return g;
 }
+  public int getgalerieFromName(String titre){
+      int i=0;
+      try {
+            String requete = "Select *  FROM galeries WHERE titre_galerie=?";
+            PreparedStatement pst = conn.prepareStatement(requete);
+            pst.setString(1, titre);
+            
+            ResultSet rs=pst.executeQuery();
+            if(rs.next())
+            {   System.out.println("Galierie Trouve");
+                i= rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+             System.out.println("galerie inExistenteé!");
+        }
+      return i;
   
+    }
+}
 
  
         
@@ -145,4 +166,3 @@ public class ServiceGalerie implements IService<Galerie>{
       
 
    
-}
